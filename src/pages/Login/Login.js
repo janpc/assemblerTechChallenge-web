@@ -7,6 +7,17 @@ import { authSelector } from "../../redux/auth/auth-selectors";
 
 import * as ROUTES from "../../routes";
 
+import {
+  Form,
+  Button,
+  Input,
+  Label,
+  RedirectMessage,
+  Title,
+  Separation,
+  Error,
+} from "../../styles/formStyles";
+
 function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,29 +49,23 @@ function Login() {
 
   return (
     <>
-      <div>
-        First time here?
-        <div>
-          <Link to={ROUTES.SIGN_UP}>Sign up</Link>
-        </div>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <br />
-        <input type="email" onChange={handleEmailChange} />
-        <br />
-        <br />
-        <label>Password:</label>
-        <br />
-        <input type="password" onChange={handlePasswordChange} />
-        <br />
-        <br />
-        <input type="submit" disabled={isSigningUp} />
-        <br />
-        <br />
-        {isSigningUp && <p>signing up</p>}
-        {signUpError && <p>{signUpError}</p>}
-      </form>
+      <Form onSubmit={handleSubmit}>
+        <Title>Login</Title>
+        <Separation />
+        <Label>Email:</Label>
+        <Input type="email" onChange={handleEmailChange} />
+        <Label>Password:</Label>
+        <Input type="password" onChange={handlePasswordChange} />
+        {isSigningUp && <Error>Signing up</Error>}
+        {signUpError && <Error>{signUpError}</Error>}
+        <Button type="submit" disabled={isSigningUp} />
+        <RedirectMessage>
+          First time here?
+          <div>
+            <Link to={ROUTES.SIGN_UP}>Sign up</Link>
+          </div>
+        </RedirectMessage>
+      </Form>
     </>
   );
 }

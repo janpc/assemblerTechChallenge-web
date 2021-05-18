@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 
 import * as colors from "./colors";
 
-import addPhotoIcon from "../img/add_a_photo_black_24dp.svg";
+const inputWidth = "400";
 
 const Form = styled.form`
   display: flex;
@@ -11,97 +11,25 @@ const Form = styled.form`
   margin: 2em auto;
 `;
 
-const PorfileImage = styled.div`
-  display: inline-block;
-  position: relative;
-  border-radius: 50%;
-  padding: min(40%, 150px);
-  margin: 1em 0;
-  align-self: center;
-  background-image: url(${(props) =>
-    props.src ||
-    "https://usra-quantum.s3.amazonaws.com/assets/images/user-avatar-icon.png"});
-  background-size: cover;
-  background-position: center;
-  box-shadow: 2px 2px 5px #0008;
-  cursor: pointer;
-  transition: box-shadow 0.1s ease-in-out;
-
-  &::before {
-    content: "";
-    background: url("${addPhotoIcon}");
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: 2;
-    position: absolute;
-    display: block;
-    height: min(30%, 50px);
-    width: min(30%, 50px);
-    top: calc(50% - 25px);
-    left: calc(50% - 25px);
-    fill: white;
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  &::after {
-    content: "";
-    z-index: 1;
-    background: radial-gradient(
-      circle,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    top: 0;
-    left: 0;
-  }
-
-  &:hover,
-  &:focus {
-    box-shadow: 0px 0px 0 2px ${colors.WHITE};
-  }
-
-  @media (min-width: 1025px) {
-    &::before {
-      opacity: 0.5;
-    }
-
-    &:hover,
-    &:focus {
-      &::before {
-        opacity: 1;
-      }
-    }
-  }
-`;
-
-const CoverImage = styled(PorfileImage)`
-  border-radius: 10px;
-
-  &::after {
-    border-radius: 10px;
-  }
-`;
-
 const Input = styled.input`
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 0.2rem 1rem;
+  outline: none;
   width: 100%;
-  border-radius: 10px;
+  max-width: ${inputWidth}px;
   box-shadow: inset 2px 2px 10px #000000;
   background: ${colors.WHITE};
   font-family: Poppins, sans-serif;
   font-weight: 400;
-  padding-left: 1em;
   color: ${colors.DARK};
-  border: 2px solid ${colors.DARK};
+  border: 2px solid transparent;
+  margin: 1rem auto;
 
   &:hover {
     --tw-ring-shadow: none;
     outline: none;
-    border: 2px solid ${colors.WHITE};
+    border: 2px solid ${colors.LIGHT};
   }
   &:focus {
     --tw-ring-shadow: none;
@@ -121,24 +49,27 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
-  margin-left: 0.5em;
-  margin-top: 1em;
+  margin-left: calc(50% - ${inputWidth / 2}px);
+  margin-top: 3em;
   color: ${colors.WHITE};
   @media (min-width: 1024px) {
     font-size: 18px;
   }
 `;
 
-const Button = styled.button`
+const Button = styled.input`
   background-color: ${colors.NEUTRAL};
   margin: 2em 0 1em;
   padding: 0.5em 0;
   border-radius: 10px;
+  border: none;
   box-shadow: 2px 2px 5px #0008;
   position: relative;
   align-self: center;
   transition: width 0.2s ease-in-out;
   font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
   width: min(100%, 250px);
   outline: none;
 
@@ -185,14 +116,10 @@ const Button = styled.button`
       : ``}
 `;
 
-const DeleteButton = styled(Button)`
-  background-color: ${colors.DELETE};
-`;
-
 const Title = styled.h1`
   width: min(90%, 700px);
   font-size: 32px;
-  margin: 2em auto 0;
+  margin: 2em auto 1rem;
   text-align: center;
 `;
 
@@ -200,24 +127,6 @@ const Separation = styled.hr`
   width: min(85%, 700px);
   color: ${colors.WHITE};
   margin: 0 auto;
-`;
-
-const ForgotPassword = styled.span`
-  font-size: 14px;
-  margin-right: 0.5rem;
-  text-align: right;
-  & > div {
-    display: inline-block;
-    & > a {
-      color: ${colors.LIGHT};
-      margin-left: 0.5rem;
-
-      &:hover {
-        text-decoration: underline;
-        color: ${colors.SMOOTH};
-      }
-    }
-  }
 `;
 
 const RedirectMessage = styled.div`
@@ -235,7 +144,7 @@ const RedirectMessage = styled.div`
 
       &:hover {
         text-decoration: underline;
-        color: ${colors.SMOOTH};
+        color: ${colors.NEUTRAL};
       }
     }
   }
@@ -265,41 +174,6 @@ const Error = styled.div`
   @media (min-width: 1024px) {
     font-size: 16px;
   }
-`;
-
-const ErrorInput = styled.div`
-  font-size: 12px;
-  margin-left: 0.5em;
-  color: ${colors.LIGHT};
-  animation: ${errorAnimation} 2s linear;
-`;
-
-const NamelessfyLogo = styled.div`
-  width: 250px;
-  height: 200px;
-  background: url("${(props) => props.src}");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position center;
-  margin: 3rem auto -1rem;
-  filter: drop-shadow( 3px 3px 5px #000);
-
-  @media (max-width: 512px) {
-    width: 200px;
-  height: 150px;
-  }
-  @media (max-width: 420px) {
-    width: 150px;
-  height: 100px;
-  }
-`;
-
-const CenterContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
 `;
 
 const AddInput = styled.div`
@@ -371,19 +245,12 @@ const AddInput = styled.div`
 
 export {
   Button,
-  CenterContent,
-  DeleteButton,
   Error,
-  ErrorInput,
-  ForgotPassword,
   Form,
   Input,
   Label,
   RedirectMessage,
-  NamelessfyLogo,
-  PorfileImage,
   Separation,
   Title,
-  CoverImage,
   AddInput,
 };

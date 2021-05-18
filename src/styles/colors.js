@@ -1,9 +1,7 @@
-const MAIN = "#182628";
-const DARK = "#0C1314";
-const LIGHT = "#65CCB8";
-const WHITE = "#F2F2F2";
-const SMOOTH = "#57BA98";
-const NEUTRAL = "#3B945E";
-const DELETE = "#943B3B";
+const MAIN = "#1f2833";
+const DARK = "#0b0c10";
+const LIGHT = "#66fcf1";
+const WHITE = "#c5c6c7";
+const NEUTRAL = "#45a29e";
 
-export { MAIN, DARK, LIGHT, WHITE, SMOOTH, NEUTRAL, DELETE };
+export { MAIN, DARK, LIGHT, WHITE, NEUTRAL };
