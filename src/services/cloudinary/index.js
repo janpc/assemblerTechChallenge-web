@@ -1,1 +1,0 @@
-export { getFileUrl } from "./cloudinary";

@@ -17,6 +17,7 @@ import * as ROUTES from "./routes";
 import { onAuthStateChanged, signOut } from "./services/auth";
 import { signUpSuccess } from "./redux/auth/auth-actions";
 import ProtectedRoute from "./components/ProtectedRoute.js/ProtectedRoute";
+import Meme from "./pages/Meme/Meme";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
         <Switch>
           <Route path={ROUTES.LOGIN} component={Login} />
           <Route path={ROUTES.SIGN_UP} component={SignUp} />
+          <Route path={`${ROUTES.MEME}/:id`} component={Meme} />
           <ProtectedRoute path={ROUTES.UPLOAD} component={Upload} />
           <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
           <Route path={ROUTES.HOME} exact component={Home} />

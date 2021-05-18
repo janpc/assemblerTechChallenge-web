@@ -3,6 +3,8 @@ import * as COLORS from "../../styles/colors";
 import * as FONTS from "../../styles/fonts";
 
 const NavBarBackground = styled.header`
+  position: sticky;
+  top: 0;
   background-color: ${COLORS.DARK};
   width: 100%;
   padding: 1.5rem 0;
@@ -21,13 +23,20 @@ const LinkList = styled.ul`
   display: flex;
   gap: 1rem;
   width: 30%;
+`;
 
-  & > li > a {
+const LinkItem = styled.li`
+  & > a {
     color: ${COLORS.WHITE};
     font-size: large;
     text-decoration: none;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
+
+    ${({ selected }) =>
+      selected &&
+      `color: ${COLORS.LIGHT};
+    text-decoration: underline;`}
 
     &:hover,
     &:focus {
@@ -84,6 +93,7 @@ const SearchBar = styled.input`
 export {
   NavBarBackground,
   LinkList,
+  LinkItem,
   IconButton,
   NavBarContent,
   SearchBar,

@@ -10,6 +10,7 @@ import * as ROUTES from "../../routes";
 import {
   NavBarBackground,
   LinkList,
+  LinkItem,
   IconButton,
   NavBarContent,
   SearchBar,
@@ -24,11 +25,14 @@ import {
   FaPlus,
   FaSearch,
 } from "react-icons/fa";
+import { setMemesType } from "../../redux/meme/meme-actions";
+import { memeSelector } from "../../redux/meme/meme-selectors";
 
 function NavBar() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { isAuthenticated } = useSelector(authSelector);
+  const { type } = useSelector(memeSelector);
 
   function handleSignOut() {
     dispatch(signOut());
@@ -46,21 +50,25 @@ function NavBar() {
     history.push(ROUTES.LOGIN);
   }
 
+  function setType(type) {
+    dispatch(setMemesType(type));
+  }
+
   return (
     <NavBarBackground>
       <NavBarContent>
         <LinkList>
-          <li>
+          <LinkItem onClick={() => setType("all")} selected={type === "all"}>
             <Link to={ROUTES.HOME}> All </Link>
-          </li>
-          <li>|</li>
-          <li>
+          </LinkItem>
+          <LinkItem>|</LinkItem>
+          <LinkItem onClick={() => setType("meme")} selected={type === "meme"}>
             <Link to={ROUTES.HOME}> Memes </Link>
-          </li>
-          <li>|</li>
-          <li>
+          </LinkItem>
+          <LinkItem>|</LinkItem>
+          <LinkItem onClick={() => setType("gif")} selected={type === "gif"}>
             <Link to={ROUTES.HOME}> Gifs </Link>
-          </li>
+          </LinkItem>
         </LinkList>
         <SearchContainer>
           <label for="search">
