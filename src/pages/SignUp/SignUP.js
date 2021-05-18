@@ -7,6 +7,17 @@ import { authSelector } from "../../redux/auth/auth-selectors";
 
 import * as ROUTES from "../../routes";
 
+import {
+  Form,
+  Button,
+  Input,
+  Label,
+  RedirectMessage,
+  Title,
+  Separation,
+  Error,
+} from "../../styles/formStyles";
+
 function SignUp() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,35 +49,29 @@ function SignUp() {
 
   return (
     <>
-      <div>
-        Already have an account?
-        <div>
-          <Link to={ROUTES.LOGIN}>Log in</Link>
-        </div>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <br />
-        <input type="email" onChange={handleEmailChange} />
-        <br />
-        <br />
-        <label>Password:</label>
-        <br />
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Title>Sign Up</Title>
+        <Separation />
+        <Label>Email:</Label>
+        <Input type="email" onChange={handleEmailChange} />
+        <Label>Password:</Label>
+        <Input
           type="password"
           onChange={handlePasswordChange}
           pattern=".{6,}"
           required
           title="6 characters minimum"
         />
-        <br />
-        <br />
-        <input type="submit" disabled={isSigningUp} />
-        <br />
-        <br />
-        {isSigningUp && <p>signing up</p>}
-        {signUpError && <p>{signUpError}</p>}
-      </form>
+        {isSigningUp && <Error>signing up</Error>}
+        {signUpError && <Error>{signUpError}</Error>}
+        <Button type="submit" disabled={isSigningUp} />
+        <RedirectMessage>
+          Already have an account?
+          <div>
+            <Link to={ROUTES.LOGIN}>Log in</Link>
+          </div>
+        </RedirectMessage>
+      </Form>
     </>
   );
 }
